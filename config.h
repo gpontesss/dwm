@@ -58,9 +58,16 @@ static const Layout layouts[] = {
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          SHCMD("dmenu_run") },
-	{ MODKEY,                       XK_Return, spawn,          SHCMD("alacritty") },
-	{ ControlMask|ShiftMask,        XK_Print,  spawn,          SHCMD("selprint") },
+
+    /* Command bindings */
+	{ MODKEY,                XK_d,                     spawn, SHCMD("dmenu_run") },
+	{ MODKEY,                XK_Return,                spawn, SHCMD("alacritty") },
+	{ ControlMask|ShiftMask, XK_Print,                 spawn, SHCMD("selprint") },
+	{ 0,                     XF86XK_AudioMute,         spawn, SHCMD("pamixer -t") },
+	{ 0,                     XF86XK_AudioRaiseVolume,  spawn, SHCMD("pamixer --allow-boost -i 5") },
+	{ 0,                     XF86XK_AudioLowerVolume,  spawn, SHCMD("pamixer --allow-boost -d 5") },
+
+    /* WM operations */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
