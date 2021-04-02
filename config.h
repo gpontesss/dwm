@@ -2,6 +2,8 @@
 
 #include <X11/XF86keysym.h>
 
+#define TERM "alacritty"
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -54,18 +56,26 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd)  { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define WINCMD(cmd) SHCMD(TERM " -e \"" cmd "\"")
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
     /* Command bindings */
 	{ MODKEY,                XK_d,                     spawn, SHCMD("dmenu_run") },
-	{ MODKEY,                XK_Return,                spawn, SHCMD("alacritty") },
+	{ MODKEY,                XK_e,                     spawn, WINCMD("ranger") },
+	{ MODKEY,                XK_Return,                spawn, SHCMD(TERM) },
 	{ ControlMask|ShiftMask, XK_Print,                 spawn, SHCMD("selprint") },
-	{ 0,                     XF86XK_AudioMute,         spawn, SHCMD("pamixer -t") },
-	{ 0,                     XF86XK_AudioRaiseVolume,  spawn, SHCMD("pamixer --allow-boost -i 5") },
-	{ 0,                     XF86XK_AudioLowerVolume,  spawn, SHCMD("pamixer --allow-boost -d 5") },
+
+	{ 0, XF86XK_AudioMute,         spawn, SHCMD("pamixer -t") },
+	{ 0, XF86XK_AudioRaiseVolume,  spawn, SHCMD("pamixer --allow-boost -i 5") },
+	{ 0, XF86XK_AudioLowerVolume,  spawn, SHCMD("pamixer --allow-boost -d 5") },
+
+	{ 0,         XF86XK_MonBrightnessUp,   spawn, SHCMD("xbacklight -inc 5") },
+	{ 0,         XF86XK_MonBrightnessDown, spawn, SHCMD("xbacklight -dec 5") },
+	{ ShiftMask, XF86XK_MonBrightnessUp,   spawn, SHCMD("gammactl dec 300") },
+	{ ShiftMask, XF86XK_MonBrightnessDown, spawn, SHCMD("gammactl inc 300") },
 
     /* WM operations */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -108,7 +118,7 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,                Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,                Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,                Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,                Button2,        spawn,          SHCMD("alacritty") },
+	{ ClkStatusText,        0,                Button2,        spawn,          SHCMD(TERM) },
 	{ ClkClientWin,         MODKEY,           Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,           Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY|ShiftMask, Button1,        resizemouse,    {0} },
