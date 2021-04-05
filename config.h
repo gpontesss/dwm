@@ -63,10 +63,11 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 
     /* Command bindings */
-	{ MODKEY,                XK_d,                     spawn, SHCMD("dmenu_run") },
-	{ MODKEY,                XK_e,                     spawn, WINCMD("ranger") },
-	{ MODKEY,                XK_Return,                spawn, SHCMD(TERM) },
-	{ ControlMask|ShiftMask, XK_Print,                 spawn, SHCMD("selprint") },
+	{ MODKEY,                XK_d,      spawn, SHCMD("dmenu_run") },
+	{ MODKEY,                XK_e,      spawn, WINCMD("ranger") },
+	{ MODKEY,                XK_Return, spawn, SHCMD(TERM) },
+	{ ControlMask|ShiftMask, XK_Print,  spawn, SHCMD("selprint") },
+	{ MODKEY|ShiftMask,      XK_p,      spawn, SHCMD("lpmenu") },
 
 	{ 0, XF86XK_AudioMute,         spawn, SHCMD("pamixer -t") },
 	{ 0, XF86XK_AudioRaiseVolume,  spawn, SHCMD("pamixer --allow-boost -i 5") },
